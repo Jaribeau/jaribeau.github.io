@@ -1,27 +1,83 @@
-.center {
-    margin: 0;
+/******** HOME ********/
+#home {
+  	height: 100%;
+  	text-align: center;
+}
+
+#home
+.name {
+	margin: 0;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+	transform: translateX(-50%) translateY(-50%);
+	/* Firefox 16+, IE 10+, Opera */
+	transform: translateX(-50%) translateY(-50%);
+	/* Chrome, Opera 15+, Safari 3.1+ */
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	/* IE 9 */
+	-ms-transform: translateX(-50%) translateY(-50%);
 }
 
+#home
 h1 {
-	font-family: 'Tahoma'
+	font-family: 'Tahoma';
+	font-size: 6rem;
+	color: #22CA3E;
+	font-weight: 700;
+	letter-spacing: 20px;
 }
 
-#home {
-  height: 100%;
-  text-align: center;
+#home
+h3 {
+	font-family: 'Tahoma';
+	font-size: 2.5rem;
+	color: #B2B2B2;
+	font-weight: 100;
+	letter-spacing: 5px;
+	padding-top: 70px;
 }
 
 #home
 .home-content {
-  height: 100vh;
-  width: 100%;
-  background-image: url("../images/hike-a-bike.jpg");
-  background-size: cover;
-  /*background-position: 40% 50%;*/
-  background-position: 50% 50%;
-  position: relative;
+	height: 100vh;
+	width: 100%;
+	/*background-image: url("../images/hike-a-bike.jpg");*/
+	/*background-size: cover;*/
+	background-color: rgba(46,46,46,1);
+	/*background-blend-mode: darken;*/
+	background-position: 50% 50%;
+	position: relative;
+}
+
+#home
+.see-more-icon {
+	position: absolute;
+	top: 92%;
+	right: 50%;
+	z-index: 105;
+}
+
+#home path {
+	fill: #22CA3E;
+}
+
+
+/****** FOOTER ******/
+#footer {
+  background-color: rgba(46,46,46,1);
+}
+
+#footer
+.made-in-canada p {
+	color: #fff;
+	text-align: center;
+	margin: auto;
+	padding: 10px 0px 10px 0px;
+}
+
+#footer
+.made-in-canada svg {
+	display: inline-block;
+	vertical-align: middle;
 }
