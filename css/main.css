@@ -119,6 +119,35 @@ h3 {
     );
 }
 
+#projects
+.tile {
+	text-align: center;
+	background-color: white;
+
+	width: auto;
+	position:relative;
+    overflow:hidden;
+    padding-bottom:100%;
+/*
+	box-shadow: 0px 0px 8px #fff;
+	border-width: 5px;
+	border-color: white;
+	border-style: solid;*/
+}
+
+#projects
+.tile:hover {
+	transform: scale(1.02);
+}
+
+#projects
+.tile img {
+	position:absolute;
+	left: 0;
+	height: 100%;
+	width: 100%;
+}
+
 
 
 /****** FOOTER ******/
