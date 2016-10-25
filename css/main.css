@@ -171,6 +171,13 @@ h3 {
 	width: 100%;
 }
 
+#project-modals
+.modal-body img {
+	width: 100%;
+	height: auto;
+	padding-bottom: 10px;
+}
+
 
 
 /****** FOOTER ******/
