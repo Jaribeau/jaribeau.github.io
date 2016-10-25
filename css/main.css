@@ -132,14 +132,18 @@ h3 {
 	background-color: #2e2e2e;
 }
 
-#projects h1, p {
+#projects h1 {
+	color: #22CA3E;
+}
+
+#projects p {
 	color: #B2B2B2;
 }
 
 #projects
 .tile {
 	text-align: center;
-	background-color: white;
+	background-color: #2e2e2e;
 
 	width: auto;
 	position:relative;
