@@ -136,8 +136,23 @@ h3 {
 	color: #22CA3E;
 }
 
+#projects h2 {
+	color: #B2B2B2;
+}
+
+#projects h3 {
+	color: #fff;
+	font-weight: lighter;
+	letter-spacing: 2px;
+}
+
 #projects p {
 	color: #B2B2B2;
+}
+
+#projects
+.tile-row {
+	text-align: center;
 }
 
 #projects
@@ -151,16 +166,11 @@ h3 {
     padding-bottom:100%;
     margin-top: 15px;
     margin-bottom: 15px;
-/*
-	box-shadow: 0px 0px 8px #fff;
-	border-width: 5px;
-	border-color: white;
-	border-style: solid;*/
 }
 
 #projects
-.tile:hover {
-	transform: scale(1.02);
+.tile:hover img {
+	transform: scale(1.05);
 }
 
 #projects
@@ -169,6 +179,10 @@ h3 {
 	left: 0;
 	height: 100%;
 	width: 100%;
+	-webkit-transition: 300ms;
+	-moz-transition: 300ms;
+	-o-transition: 300ms;
+	transition: 300ms;
 }
 
 #project-modals
