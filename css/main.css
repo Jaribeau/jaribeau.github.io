@@ -146,9 +146,9 @@ h3 {
 	letter-spacing: 2px;
 }
 
-#projects p {
+/*#projects p {
 	color: #B2B2B2;
-}
+}*/
 
 #projects
 .tile-row {
@@ -185,11 +185,34 @@ h3 {
 	transition: 300ms;
 }
 
+
+
+
+#project-modals 
+.modal-content {
+	background-color: rgba(46,46,46,1);
+}
+
+#project-modals 
+.modal-header {
+	border-color: #555;
+}
+
 #project-modals
 .modal-body img {
 	width: 100%;
 	height: auto;
-	padding-bottom: 10px;
+	padding-bottom: 20px;
+}
+
+#project-modals h4, p {
+	color: #B2B2B2;
+}
+
+#project-modals p {
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: justify;
 }
 
 
