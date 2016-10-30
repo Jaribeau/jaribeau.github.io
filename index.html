@@ -32,6 +32,7 @@
 	</section><!--/home-->
 
 
+
 	<section id="about" class="white-gradient">
 		<div class="container">
 			<div class="row">
@@ -48,6 +49,7 @@
 	</section><!--/about-->
 
 
+
 	<section id="projects" class="">
 		<div class="container">
 			<div class="row">
@@ -59,18 +61,13 @@
 				</div>
 			</div>		
 
-<!-- 			<div class="row projects-subtitle">
-				<div class="col-sm-12">
-					<h2>Software</h2>
-				</div>
-			</div> -->
 
 			<div class="row tile-row">
 
 				<div class="col-xs-6 col-sm-3">
 					<div class="tile">
 						<a type="button" data-toggle="modal" data-target="#tidbits">
-							<img class="responsive" src="images/tidbits-thumb2.jpg">
+							<img class="responsive" src="images/tidbits-thumb2.jpg" alt="Tidbits Thumbnail">
 						</a>
 					</div>
 					<h3>Tidbits</h3>
@@ -78,20 +75,26 @@
 
 				<div class="col-xs-6 col-sm-3">
 					<div class="tile">
-						<img class="responsive" src="images/livelocal-thumb-purple.jpg">
+						<a type="button" data-toggle="modal" data-target="#livelocal">
+							<img class="responsive" src="images/livelocal-thumb-purple.jpg" alt="LiveLocal Thumbnail">
+						</a>
 					</div>
 					<h3>LiveLocal</h3>
 				</div>
 
 				<div class="col-xs-6 col-sm-3">
 					<div class="tile">
-						<img class="responsive" src="images/td-greeting-thumb-bw.jpg">
+						<a type="button" data-toggle="modal" data-target="#smart-greeting">
+							<img class="responsive" src="images/td-greeting-thumb-bw.jpg" alt="Smart Greeting Thumbnail">
+						</a>
 					</div>
 					<h3>TD Smart Greeting</h3>
 				</div>
 				<div class="col-xs-6 col-sm-3">
 					<div class="tile">
-						<img class="responsive" src="images/td-greeting-thumb-bw.jpg">
+						<a type="button" data-toggle="modal" data-target="#smart-display">
+							<img class="responsive" src="images/td-greeting-thumb-bw.jpg" alt="Smart Display Thumbnail">
+						</a>
 					</div>
 					<h3>TD Smart Display</h3>
 				</div>
@@ -101,13 +104,17 @@
 			<div class="row tile-row">
 				<div class="col-xs-6 col-sm-3">
 					<div class="tile">
-						<img class="responsive" src="images/happyheart-thumb2.jpg">
+						<a type="button" data-toggle="modal" data-target="#happyheart">
+							<img class="responsive" src="images/happyheart-thumb2.jpg" alt="Happy Heart Thumbnail">
+						</a>
 					</div>
 					<h3>HappyHeart</h3>
 				</div>
 				<div class="col-xs-6 col-sm-3">
 					<div class="tile">
-						<img class="responsive" src="images/myomote-thumb-bw.jpg">
+						<a type="button" data-toggle="modal" data-target="#myomote">
+							<img class="responsive" src="images/myomote-thumb-bw.jpg" alt="MyoMote Thumbnail">
+						</a>
 					</div>
 					<h3>MyoMote</h3>
 				</div>
@@ -124,22 +131,163 @@
 		</div>
 	</section><!--/projects-->
 
+
+
 	<section id="project-modals">
 
-		<div id="tidbits" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="speaker-bio">
+		<div id="tidbits" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="project-detail">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<a type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
-						<h4 class="modal-title" >Tidbits | Android App (In Progress)</h4>
+						<h4 class="modal-title">Tidbits | Design and Development (In Progress)</h4>
 						<!-- <h5>App to aid in remembering the details of friends’ lives and keeping in touch</h5> -->
 					</div>
 					<div class="modal-body">
-						<img class="responsive" src="images/tidbits.jpg">
+						<img class="responsive" src="images/tidbits.jpg" alt="Tidbits Mockups">
 
 						<p>Tidbits is a tool that helps you build better relationships. It does this by helping you remember the names of new friends and keep better tabs on your old friends.</p>
 
-						<p>This is a personal side project that I've long wanted to bring to life. I'm doing that now - designs are as 'complete' (not that designs are ever complete) and I'm currently in the development phase. The is being built with Rails and React Native.</p>
+						<p>This is a side project that I've long wanted to bring to life. I've through the first few iterations of designs and now I'm building it with Rails and React Native.</p>
+
+						<p class="tags">
+							<span>#Photoshop</span>
+							<span>#Rails</span>
+							<span>#ReactNative</span>
+							<span>#Bootstrap</span>
+							<span>#Android</span>
+							<span>#iOS</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="livelocal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="project-detail">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<a type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+						<h4 class="modal-title">LiveLocal | Product Design </h4>
+					</div>
+					<div class="modal-body">
+						<img class="responsive" src="images/livelocal.jpg" alt="LoveLocal Mockups">
+
+						<p>LiveLocal helps connect travellers with the concierge best suited to their travel destination, schedule, and preferences.</p>
+
+						<p>These designs were completed for an early stage startup called LiveLocal that has since ceased operation.</p>
+
+						<p class="tags">
+							<span>#Photoshop</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="smart-greeting" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="project-detail">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<a type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+						<h4 class="modal-title">TD Smart Greeting | Android + Front End Web Development</h4>
+					</div>
+					<div class="modal-body">
+						<img class="responsive" src="images/smart-greeting.jpg" alt="Smart Greeting Image">
+
+						<p></p>
+
+						<p></p>
+
+						<p class="tags">
+							<span>#Andriod</span>
+							<span>#BluetoothGeolocation</span>
+							<span>#AngularJS</span>
+							<span>#HTML</span>
+							<span>#CSS</span>
+							<span>#Bootstrap</span>
+							<span>#Node</span>
+							<span>#MongoDB</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="smart-display" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="project-detail">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<a type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+						<h4 class="modal-title">TD Smart Display | Android + Front End Web Development</h4>
+					</div>
+					<div class="modal-body">
+						<img class="responsive" src="images/smart-display.jpg" alt="Smart Display Image">
+
+						<p></p>
+
+						<p></p>
+
+						<p class="tags">
+							<span>#Andriod</span>
+							<span>#BluetoothGeolocation</span>
+							<span>#AngularJS</span>
+							<span>#HTML</span>
+							<span>#CSS</span>
+							<span>#Bootstrap</span>
+							<span>#Node</span>
+							<span>#MongoDB</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="happyheart" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="project-detail">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<a type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+						<h4 class="modal-title">HappyHeart | Full Stack Web Development</h4>
+					</div>
+					<div class="modal-body">
+						<img class="responsive" src="images/smart-display.jpg" alt="Smart Display Image">
+
+						<p></p>
+
+						<p></p>
+
+						<p class="tags">
+							<span>#HTML</span>
+							<span>#CSS</span>
+							<span>#Bootstrap</span>
+							<span>#Node</span>
+							<span>#MicrosoftAzure</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="myomote" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="project-detail">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<a type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+						<h4 class="modal-title">MyoMote | Embedded Software Development</h4>
+					</div>
+					<div class="modal-body">
+						<img class="responsive" src="images/myomote.jpg" alt="MyoMote Photo">
+
+						<p></p>
+
+						<p></p>
+
+						<p class="tags">
+							<span>#Arduino</span>
+							<span>#IR</span>
+							<span>#Bluetooth</span>
+						</p>
 					</div>
 				</div>
 			</div>

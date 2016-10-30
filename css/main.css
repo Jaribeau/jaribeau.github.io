@@ -199,6 +199,11 @@ h3 {
 }
 
 #project-modals
+.modal-body {
+	padding: 0px;
+}
+
+#project-modals
 .modal-body img {
 	width: 100%;
 	height: auto;
@@ -210,9 +215,21 @@ h3 {
 }
 
 #project-modals p {
-	padding-left: 10px;
-	padding-right: 10px;
-	text-align: justify;
+	padding-left: 20px;
+	padding-right: 20px;
+	letter-spacing: 0.25px;
+}
+
+#project-modals 
+.tags {
+	padding-top: 10px;
+}
+
+#project-modals 
+.tags span {
+	background-color: green;
+	border-radius: 3px;
+	padding: 2px;
 }
 
 
