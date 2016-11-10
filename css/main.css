@@ -240,11 +240,13 @@ h3 {
 
 /****** CONTACT ******/
 #contact {
+	background-color: #ddd;
 	/*background-color: #B2B2B2;*/
-	background-color: #22CA3E;
+	/*background-color: #22CA3E;*/
 }
 
 #contact h1 {
+	color: #524699;
 	/*color: #22CA3E;*/
 }
 
