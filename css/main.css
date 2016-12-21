@@ -76,7 +76,8 @@ h1 {
 #home
 h1 {
 	font-size: 6rem;
-	color: #22CA3E;
+	/*color: #524699;*/ /*purple*/
+	color: #22CA3E;  /*green*/
 	font-weight: 700;
 	letter-spacing: 20px;
 }
@@ -243,12 +244,11 @@ h3 {
 /****** CONTACT ******/
 #contact {
 	background-color: #ddd;
-	/*background-color: #B2B2B2;*/
-	/*background-color: #22CA3E;*/
+	padding-bottom: 0px;
 }
 
 #contact h1 {
-	color: #524699;
+	color: #22CA3E;
 	/*color: #22CA3E;*/
 }
 
@@ -266,6 +266,15 @@ h3 {
 	color: #000;
 	font-weight: lighter;
 	letter-spacing: 2px;
+}
+
+#contact img {
+	border-radius: 0px;
+	box-shadow: 5px 5px 3px #333;
+}
+
+#contact .container {
+	padding-bottom: 0px;
 }
 
 
