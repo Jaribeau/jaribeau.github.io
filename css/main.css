@@ -216,6 +216,20 @@ h3 {
 	padding-bottom: 20px;
 }
 
+#project-modals
+.modal-body .small-img {
+	height: 400px;
+	width: auto;
+	padding-right: 10px;
+	padding-left: 10px;
+	text-align: center;
+}
+
+#project-modals
+.modal-body .center {
+	text-align: center;
+}
+
 #project-modals h4, p {
 	color: #B2B2B2;
 }
