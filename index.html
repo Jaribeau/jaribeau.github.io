@@ -68,11 +68,11 @@
 			<div class="row tile-row">
 				<div class="col-xs-6 col-sm-3">
 					<div class="tile">
-						<a type="button" data-toggle="modal" data-target="#tidbits">
-							<img class="responsive" src="images/tidbits-thumb2.jpg" alt="Tidbits Thumbnail">
+						<a type="button" data-toggle="modal" data-target="#handle">
+							<img class="responsive" src="images/handle-thumb.jpg" alt="Happy Heart Thumbnail">
 						</a>
 					</div>
-					<h3>Tidbits</h3>
+					<h3>Handle</h3>
 				</div>
 				<div class="col-xs-6 col-sm-3">
 					<div class="tile">
@@ -120,12 +120,23 @@
 				</div>
 				<div class="col-xs-6 col-sm-3">
 					<div class="tile">
+						<a type="button" data-toggle="modal" data-target="#tidbits">
+							<img class="responsive" src="images/tidbits-thumb2.jpg" alt="Tidbits Thumbnail">
+						</a>
+					</div>
+					<h3>Tidbits</h3>
+				</div>				
+				<div class="col-xs-6 col-sm-3">
+					<div class="tile">
 						<a type="button" data-toggle="modal" data-target="#smart-greeting">
 							<img class="responsive" src="images/td-greeting-thumb-bw.jpg" alt="Smart Greeting Thumbnail">
 						</a>
 					</div>
 					<h3>TD Smart Greeting</h3>
 				</div>
+			</div>
+
+			<div class="row tile-row">
 				<div class="col-xs-6 col-sm-3">
 					<div class="tile">
 						<a type="button" data-toggle="modal" data-target="#smart-display">
@@ -133,14 +144,49 @@
 						</a>
 					</div>
 					<h3>TD Smart Display</h3>
-				</div>
+				</div>				
 			</div>
+
 		</div>
 	</section><!--/projects-->
 
 
 
 	<section id="project-modals">
+		<div id="handle" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="project-detail">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<a type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+						<h4 class="modal-title">Handle | Computer Vision Hockey Stickhandling Trainer</h4>
+					</div>
+					<div class="modal-body">
+						<img class="responsive" src="images/projects/handle-1.jpg" alt="Handle 1">
+						<p class="tags">
+							<span>#Python</span>
+							<span>#OpenCV</span>
+							<span>#ComputerVision</span>
+							<span>#RaspberryPi</span>
+							<span>#Hardware</span>
+						</p>
+						<p>Handle was built as a design project along with some of my awesome classmates last term. It's a game where you stickhanle a ball within the square on the floor,keeping it away from the moving laser. </p>
+						<p>There were two portions to the vision processing. The first is object tracking, or in this case "big orange ball tracking", demonstrated alongside my corny smile:</p>
+						<img class="responsive" src="images/projects/handle-2.jpg" alt="Handle Ball Tracking">
+						<p>The second part is applying a transformation to the camera input to correct the distortion that results from an skewed angle. The camera doesn't see this square as a square: </p>
+						<img class="responsive" src="images/projects/handle-calibration-1.jpg" alt="Calibration Distorted">
+						<p>Fear not! Drop a couple of dots on those corner coordinates and let a little bit of linear algebra do the rest!</p>
+						<img class="responsive" src="images/projects/handle-calibration-2.jpg" alt="Calibration Dots">
+						<p>And just like that, we're left with a true square. This now directly maps to the virtual playing area, where the real-world laser obstacle moving along the floor is mirrored by a moving circle on the screen.</p>
+						<img class="responsive" src="images/projects/handle-calibration-3.jpg" alt="Calibration Tranformed">
+						<p>The software is watching for collisions and controlling the pattern of the obstacle. The longer you survive, the higher your score!</p>
+						<img class="responsive" src="images/projects/handle-4.jpg" alt="Handle Game Screen">
+						<br><br>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div id="tidbits" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="project-detail">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
