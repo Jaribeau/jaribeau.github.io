@@ -15,7 +15,19 @@
 
 /* xs */
 @media (max-width: 767px) {
+    #home
+    .name {
+	    border: none;
+    }
+    #home
+    .home-content {
+	    border: 1px solid white;
+    }
 
+    #home
+    .social-icon {
+	    float: none;
+    }
 }
 
 /* XS Portrait */
