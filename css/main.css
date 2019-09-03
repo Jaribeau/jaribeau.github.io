@@ -1,7 +1,7 @@
 /****** GENERAL ******/
 
 h1, h2, h3, p {
-	font-family: 'Helvetica Neue';
+	font-family: 'Helvetica Neue', 'Arial', sans-serif;
 	color: #2e2e2e;
 }
 
@@ -86,7 +86,7 @@ h1 {
 
 #home
 h3 {
-	font-family: 'Tahoma';
+	font-family: 'Tahoma', "Verdana", sans-serif;
 	font-size: 2rem;
 	color: #B2B2B2;
 	font-weight: 100;
