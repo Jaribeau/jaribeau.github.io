@@ -1,2 +1,2 @@
 # jareds.site
-Portfolio website.
+Portfolio website. Check it out, https://jareds.site.
