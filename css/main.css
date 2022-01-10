@@ -270,9 +270,49 @@ h3 {
 
 
 
+/****** PHOTOGRAPHY ******/
+#photography {
+	padding-bottom: 0px;
+}
+
+#photography h1 {
+	color: #479bb6;
+}
+
+#photography
+.photo-tile {
+	text-align: center;
+	background-color: #479bb6;
+	width: auto;
+	position:relative;
+    overflow:hidden;
+    padding-bottom:100%;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+#photography
+.photo-tile img {
+	position:absolute;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	-webkit-transition: 300ms;
+	-moz-transition: 300ms;
+	-o-transition: 300ms;
+	transition: 300ms;
+}
+
+
+
+
 /****** CONTACT ******/
 #contact {
 	padding-bottom: 0px;
+	background-image:
+    linear-gradient(
+      #1e1e1e, #8b8b8b
+    );
 }
 
 #contact h1 {
@@ -286,7 +326,7 @@ h3 {
 }
 
 #contact p {
-	color: #000;
+	color: #fff;
 	font-weight: lighter;
 	letter-spacing: 2px;
 }
@@ -301,39 +341,6 @@ h3 {
 	padding-bottom: 0px;
 }
 
-
-
-
-/****** RESUME ******/
-#resume {
-	/*background-color: #2e2e2e;*/
-	background-color: #524699;
-	padding-bottom: 0px;
-}
-
-#resume h1 {
-	color: #ddd;
-}
-
-#resume h2 {
-	color: #B2B2B2;
-}
-
-#resume h3 {
-	color: #fff;
-	font-weight: lighter;
-	letter-spacing: 2px;
-}
-
-#resume img {
-	border-radius: 3px;
-	box-shadow: 5px 5px 3px #333;
-	border: 5px solid #333;
-}
-
-#resume .container {
-	padding-bottom: 0px;
-}
 
 
 
