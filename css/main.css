@@ -294,9 +294,9 @@ h3 {
 #photography
 .photo-tile img {
 	position:absolute;
-	left: 0;
+	left: -25%;
 	height: 100%;
-	width: 100%;
+	width: auto;
 	-webkit-transition: 300ms;
 	-moz-transition: 300ms;
 	-o-transition: 300ms;
