@@ -1,6 +1,6 @@
 /****** GENERAL ******/
 
-h1, h2, h3, p {
+h1, h2, h3, p, a {
 	font-family: 'Tahoma', "Verdana", sans-serif;
 	color: black;
 }
@@ -267,6 +267,12 @@ h3 {
 	padding: 2px;
 }
 
+#project-modals button {
+	background-color: #3a7c92;
+	color: white;
+	font-family: 'Tahoma', "Verdana", sans-serif;
+	width: 50%;
+}
 
 
 
