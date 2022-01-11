@@ -18,10 +18,16 @@
     #home
     .name {
 	    border: none;
+        padding: 50px 10px 10px 50px;
     }
     #home
     .home-content {
 	    border: 1px solid white;
+    }
+
+    #home
+    h1 {
+        letter-spacing: 10px;
     }
 
     #home
