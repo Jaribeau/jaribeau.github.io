@@ -262,7 +262,7 @@ h3 {
 
 #project-modals 
 .tags span {
-	background-color: green;
+	background-color: #3a7c92;
 	border-radius: 3px;
 	padding: 2px;
 }
@@ -329,6 +329,10 @@ h3 {
 	color: #fff;
 	font-weight: lighter;
 	letter-spacing: 2px;
+}
+
+#contact a {
+	color: #479bb6;
 }
 
 #contact img {
