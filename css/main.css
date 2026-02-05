@@ -379,3 +379,21 @@ h3 {
 	display: inline-block;
 	vertical-align: middle;
 }
+
+
+
+/****** UNDER CONSTRUCTION CHIP ******/
+.under-construction-chip {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background-color: #3a7c92;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-family: 'Tahoma', 'Verdana', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    z-index: 1000;
+    opacity: 0.9;
+}
