@@ -57,20 +57,59 @@
             color: #555;
         }
 
-        .fullscreen-btn {
+        .button-group {
             margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
             background: transparent;
             border: 1px solid #444;
             color: #888;
             padding: 0.5rem 0.75rem;
-            font-size: 1.25rem;
+            font-size: 0.875rem;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .fullscreen-btn:hover {
+        .action-btn:hover {
             border-color: #479bb6;
             color: #479bb6;
+        }
+
+        /* Confetti styles */
+        .confetti-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+        }
+
+        .confetti.active {
+            animation: confetti-burst 2s ease-out forwards;
+        }
+
+        @keyframes confetti-burst {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(0);
+                opacity: 0;
+            }
         }
 
         .timer-indicator {
@@ -131,6 +170,7 @@
 </head>
 <body>
     <div class="border-overlay" id="borderOverlay"></div>
+    <div class="confetti-container" id="confettiContainer"></div>
 
     <div class="container">
         <h1 class="title">What's your focus?</h1>
@@ -138,73 +178,78 @@
             type="text"
             class="focus-input"
             id="focusInput"
-            placeholder="Enter your focus..."
+            placeholder="smash out a..."
             autocomplete="off"
         >
-        <button class="fullscreen-btn" id="fullscreenBtn" title="Fullscreen">⤢</button>
+        <div class="button-group">
+            <button class="action-btn" id="clearBtn">clear</button>
+            <button class="action-btn" id="doneBtn">done</button>
+            <button class="action-btn" id="fullscreenBtn">fullscreen</button>
+        </div>
     </div>
 
     <div class="timer-indicator" id="timerIndicator"></div>
 
     <script>
         const STORAGE_KEY = 'focus-page-current-focus';
-        const PULSE_INTERVAL = 5 * 60 * 1000; // 5 minutes in milliseconds
+        const PULSE_INTERVAL = 5 * 60 * 1000;
+        const CONFETTI_COLORS = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#9b59b6', '#ff85a2'];
 
         const focusInput = document.getElementById('focusInput');
         const borderOverlay = document.getElementById('borderOverlay');
         const timerIndicator = document.getElementById('timerIndicator');
+        const confettiContainer = document.getElementById('confettiContainer');
+        const clearBtn = document.getElementById('clearBtn');
+        const doneBtn = document.getElementById('doneBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
 
-        let pulseTimer;
         let countdownInterval;
         let nextPulseTime;
 
-        // Load saved focus on page load
-        function loadFocus() {
-            const savedFocus = localStorage.getItem(STORAGE_KEY);
-            if (savedFocus) {
-                focusInput.value = savedFocus;
-            }
-        }
-
-        // Save focus to localStorage
         function saveFocus(text) {
             localStorage.setItem(STORAGE_KEY, text);
         }
 
-        // Save on input
-        focusInput.addEventListener('input', (e) => {
-            saveFocus(e.target.value);
-        });
+        function clearFocus() {
+            focusInput.value = '';
+            saveFocus('');
+            focusInput.focus();
+        }
 
-        // Trigger border pulse animation
+        function createConfetti() {
+            confettiContainer.innerHTML = '';
+
+            for (let i = 0; i < 30; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti';
+                piece.style.backgroundColor = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+                piece.style.setProperty('--tx', `${(Math.random() - 0.5) * 400}px`);
+                piece.style.setProperty('--ty', `${(Math.random() - 0.5) * 400}px`);
+                piece.style.setProperty('--rot', `${Math.random() * 720}deg`);
+                piece.style.animationDelay = `${Math.random() * 0.2}s`;
+                confettiContainer.appendChild(piece);
+            }
+
+            requestAnimationFrame(() => {
+                confettiContainer.querySelectorAll('.confetti').forEach(c => c.classList.add('active'));
+            });
+
+            setTimeout(() => confettiContainer.innerHTML = '', 2500);
+        }
+
         function triggerPulse() {
             borderOverlay.classList.remove('pulse');
-            // Force reflow to restart animation
             void borderOverlay.offsetWidth;
             borderOverlay.classList.add('pulse');
-
-            // Remove class after animation completes
-            setTimeout(() => {
-                borderOverlay.classList.remove('pulse');
-            }, 3000);
-
-            // Schedule next pulse
+            setTimeout(() => borderOverlay.classList.remove('pulse'), 3000);
             schedulePulse();
         }
 
-        // Schedule the next pulse
         function schedulePulse() {
             nextPulseTime = Date.now() + PULSE_INTERVAL;
-            pulseTimer = setTimeout(triggerPulse, PULSE_INTERVAL);
-            updateTimerDisplay();
-        }
+            setTimeout(triggerPulse, PULSE_INTERVAL);
 
-        // Update the timer indicator
-        function updateTimerDisplay() {
-            if (countdownInterval) {
-                clearInterval(countdownInterval);
-            }
-
+            clearInterval(countdownInterval);
             countdownInterval = setInterval(() => {
                 const remaining = Math.max(0, nextPulseTime - Date.now());
                 const minutes = Math.floor(remaining / 60000);
@@ -213,27 +258,21 @@
             }, 1000);
         }
 
-        // Fullscreen toggle
-        const fullscreenBtn = document.getElementById('fullscreenBtn');
-
+        // Event listeners
+        focusInput.addEventListener('input', (e) => saveFocus(e.target.value));
+        clearBtn.addEventListener('click', clearFocus);
+        doneBtn.addEventListener('click', () => { clearFocus(); createConfetti(); });
         fullscreenBtn.addEventListener('click', () => {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            } else {
-                document.exitFullscreen();
-            }
+            document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
         });
-
         document.addEventListener('fullscreenchange', () => {
-            fullscreenBtn.textContent = document.fullscreenElement ? '⤡' : '⤢';
-            fullscreenBtn.title = document.fullscreenElement ? 'Exit Fullscreen' : 'Fullscreen';
+            fullscreenBtn.textContent = document.fullscreenElement ? 'exit fullscreen' : 'fullscreen';
         });
 
         // Initialize
-        loadFocus();
+        const savedFocus = localStorage.getItem(STORAGE_KEY);
+        if (savedFocus) focusInput.value = savedFocus;
         schedulePulse();
-
-        // Focus the input on load
         focusInput.focus();
     </script>
 </body>
