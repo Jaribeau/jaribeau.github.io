@@ -57,6 +57,22 @@
             color: #555;
         }
 
+        .fullscreen-btn {
+            margin-top: 2rem;
+            background: transparent;
+            border: 1px solid #444;
+            color: #888;
+            padding: 0.5rem 0.75rem;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fullscreen-btn:hover {
+            border-color: #479bb6;
+            color: #479bb6;
+        }
+
         .timer-indicator {
             position: fixed;
             bottom: 2rem;
@@ -125,6 +141,7 @@
             placeholder="Enter your focus..."
             autocomplete="off"
         >
+        <button class="fullscreen-btn" id="fullscreenBtn" title="Fullscreen">⤢</button>
     </div>
 
     <div class="timer-indicator" id="timerIndicator"></div>
@@ -195,6 +212,22 @@
                 timerIndicator.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
             }, 1000);
         }
+
+        // Fullscreen toggle
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+        fullscreenBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        });
+
+        document.addEventListener('fullscreenchange', () => {
+            fullscreenBtn.textContent = document.fullscreenElement ? '⤡' : '⤢';
+            fullscreenBtn.title = document.fullscreenElement ? 'Exit Fullscreen' : 'Fullscreen';
+        });
 
         // Initialize
         loadFocus();
