@@ -16,6 +16,7 @@
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -182,8 +183,8 @@
             autocomplete="off"
         >
         <div class="button-group">
-            <button class="action-btn" id="clearBtn">clear</button>
             <button class="action-btn" id="doneBtn">done</button>
+            <button class="action-btn" id="clearBtn">clear</button>
             <button class="action-btn" id="fullscreenBtn">fullscreen</button>
         </div>
     </div>
@@ -260,6 +261,9 @@
 
         // Event listeners
         focusInput.addEventListener('input', (e) => saveFocus(e.target.value));
+        focusInput.addEventListener('focus', () => {
+            setTimeout(() => focusInput.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+        });
         clearBtn.addEventListener('click', clearFocus);
         doneBtn.addEventListener('click', () => { clearFocus(); createConfetti(); });
         fullscreenBtn.addEventListener('click', () => {
