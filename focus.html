@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #888;
+            margin-bottom: 2rem;
+        }
+
+        .focus-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #333;
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 300;
+            text-align: center;
+            padding: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .focus-input:focus {
+            border-color: #479bb6;
+        }
+
+        .focus-input::placeholder {
+            color: #555;
+        }
+
+        .timer-indicator {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            font-size: 0.875rem;
+            color: #555;
+        }
+
+        /* Border pulse overlay */
+        .border-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            border: 4px solid transparent;
+            opacity: 0;
+        }
+
+        .border-overlay.pulse {
+            animation: borderPulse 3s ease-in-out;
+        }
+
+        @keyframes borderPulse {
+            0% {
+                opacity: 0;
+                border-color: transparent;
+            }
+            10% {
+                opacity: 1;
+                border-color: #479bb6;
+            }
+            30% {
+                opacity: 0.3;
+                border-color: #479bb6;
+            }
+            50% {
+                opacity: 1;
+                border-color: #479bb6;
+            }
+            70% {
+                opacity: 0.3;
+                border-color: #479bb6;
+            }
+            90% {
+                opacity: 1;
+                border-color: #479bb6;
+            }
+            100% {
+                opacity: 0;
+                border-color: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="border-overlay" id="borderOverlay"></div>
+
+    <div class="container">
+        <h1 class="title">What's your focus?</h1>
+        <input
+            type="text"
+            class="focus-input"
+            id="focusInput"
+            placeholder="Enter your focus..."
+            autocomplete="off"
+        >
+    </div>
+
+    <div class="timer-indicator" id="timerIndicator"></div>
+
+    <script>
+        const STORAGE_KEY = 'focus-page-current-focus';
+        const PULSE_INTERVAL = 5 * 60 * 1000; // 5 minutes in milliseconds
+
+        const focusInput = document.getElementById('focusInput');
+        const borderOverlay = document.getElementById('borderOverlay');
+        const timerIndicator = document.getElementById('timerIndicator');
+
+        let pulseTimer;
+        let countdownInterval;
+        let nextPulseTime;
+
+        // Load saved focus on page load
+        function loadFocus() {
+            const savedFocus = localStorage.getItem(STORAGE_KEY);
+            if (savedFocus) {
+                focusInput.value = savedFocus;
+            }
+        }
+
+        // Save focus to localStorage
+        function saveFocus(text) {
+            localStorage.setItem(STORAGE_KEY, text);
+        }
+
+        // Save on input
+        focusInput.addEventListener('input', (e) => {
+            saveFocus(e.target.value);
+        });
+
+        // Trigger border pulse animation
+        function triggerPulse() {
+            borderOverlay.classList.remove('pulse');
+            // Force reflow to restart animation
+            void borderOverlay.offsetWidth;
+            borderOverlay.classList.add('pulse');
+
+            // Remove class after animation completes
+            setTimeout(() => {
+                borderOverlay.classList.remove('pulse');
+            }, 3000);
+
+            // Schedule next pulse
+            schedulePulse();
+        }
+
+        // Schedule the next pulse
+        function schedulePulse() {
+            nextPulseTime = Date.now() + PULSE_INTERVAL;
+            pulseTimer = setTimeout(triggerPulse, PULSE_INTERVAL);
+            updateTimerDisplay();
+        }
+
+        // Update the timer indicator
+        function updateTimerDisplay() {
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+            }
+
+            countdownInterval = setInterval(() => {
+                const remaining = Math.max(0, nextPulseTime - Date.now());
+                const minutes = Math.floor(remaining / 60000);
+                const seconds = Math.floor((remaining % 60000) / 1000);
+                timerIndicator.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // Initialize
+        loadFocus();
+        schedulePulse();
+
+        // Focus the input on load
+        focusInput.focus();
+    </script>
+</body>
+</html>
