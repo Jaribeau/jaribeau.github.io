@@ -346,6 +346,25 @@ h3 {
 
 
 
+/****** MISCELLANEOUS ******/
+#miscellaneous {
+	background-color: #2e2e2e;
+}
+
+#miscellaneous h1 {
+	color: #479bb6;
+}
+
+#miscellaneous p {
+	color: #B2B2B2;
+}
+
+#miscellaneous a {
+	color: #479bb6;
+}
+
+
+
 /****** CONTACT ******/
 #contact {
 	padding-bottom: 0px;
@@ -366,9 +385,7 @@ h3 {
 }
 
 #contact p {
-	color: #fff;
-	font-weight: lighter;
-	letter-spacing: 2px;
+	color: #B2B2B2;
 }
 
 #contact a {
