@@ -121,6 +121,22 @@
             color: #555;
         }
 
+        .about-text {
+            display: none;
+            font-style: italic;
+            text-align: left;
+            margin-top: 1.5rem;
+            color: #666;
+            line-height: 1.6;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-text.visible {
+            display: block;
+        }
+
         /* Border pulse overlay */
         .border-overlay {
             position: fixed;
@@ -186,7 +202,10 @@
             <button class="action-btn" id="doneBtn">done</button>
             <button class="action-btn" id="clearBtn">clear</button>
             <button class="action-btn" id="fullscreenBtn">fullscreen</button>
+            <button class="action-btn" id="aboutBtn">about</button>
         </div>
+        <small class="about-text" id="aboutText">Put this on a phone, tablet, or your 2nd monitor while you work. <br><br>
+            It blinks every 5min -- as a visual cue/reminder of what your focus right now is -- in case you got distracted (it's ok it happens to the best of us...), or as a free little dopamine hit if you're still on top of it ✨</small>
     </div>
 
     <div class="timer-indicator" id="timerIndicator"></div>
@@ -203,6 +222,8 @@
         const clearBtn = document.getElementById('clearBtn');
         const doneBtn = document.getElementById('doneBtn');
         const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const aboutBtn = document.getElementById('aboutBtn');
+        const aboutText = document.getElementById('aboutText');
 
         let countdownInterval;
         let nextPulseTime;
@@ -271,6 +292,9 @@
         });
         document.addEventListener('fullscreenchange', () => {
             fullscreenBtn.textContent = document.fullscreenElement ? 'exit fullscreen' : 'fullscreen';
+        });
+        aboutBtn.addEventListener('click', () => {
+            aboutText.classList.toggle('visible');
         });
 
         // Initialize
