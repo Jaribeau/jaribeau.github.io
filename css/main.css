@@ -20,8 +20,8 @@ h1 {
 }
 
 .container {
-	padding-top: 70px;
-	padding-bottom: 70px;
+	padding-top: 100px;
+	padding-bottom: 100px;
 }
 
 .green-gradient {
@@ -137,9 +137,18 @@ h3 {
 
 /****** ABOUT ME ******/
 #about {
-	/* background-color: #ddd; */
+	background-color: #2e2e2e;
 }
+
 #about h1 {
+	color: #479bb6;
+}
+
+#about p {
+	color: #B2B2B2;
+}
+
+#about a {
 	color: #479bb6;
 }
 
@@ -170,6 +179,10 @@ h3 {
 	letter-spacing: 2px;
 }
 
+#projects .tile-row p {
+	padding: 5px 10px;
+}
+
 #projects p small {
 	font-size: 0.75em;
 	color: #5f5f5f;
@@ -179,6 +192,11 @@ h3 {
 #projects
 .tile-row {
 	text-align: left;
+}
+
+#projects
+.tile-row > div {
+	padding: 0 5px;
 }
 
 #projects
@@ -286,10 +304,19 @@ h3 {
 /****** PHOTOGRAPHY ******/
 #photography {
 	padding-bottom: 0px;
+	background-color: #2e2e2e;
 }
 
 #photography h1 {
 	color: #479bb6;
+}
+
+#photography p {
+	color: #B2B2B2;
+}
+
+#photography .carousel-inner .col-xs-3 {
+	padding: 0 5px;
 }
 
 #photography
@@ -324,7 +351,7 @@ h3 {
 	padding-bottom: 0px;
 	background-image:
     linear-gradient(
-      #1e1e1e, #8b8b8b
+      #2e2e2e, #8b8b8b
     );
 }
 
