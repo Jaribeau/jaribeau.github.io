@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interval Timer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #888;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+        }
+
+        /* Timer Display */
+        .timer-display {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .timer-time {
+            font-size: 5rem;
+            font-weight: 200;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -2px;
+        }
+
+        .round-indicator {
+            font-size: 1.5rem;
+            color: #888;
+            margin-top: 0.75rem;
+            min-height: 1.75rem;
+            font-weight: 300;
+        }
+
+        /* Intervals List */
+        .intervals-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .intervals-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .interval-card {
+            position: relative;
+            background: #2a2a2a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: default;
+        }
+
+        .interval-card.dragging {
+            opacity: 0.5;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .interval-card.drag-over {
+            border-color: #479bb6;
+        }
+
+        .interval-card.active {
+            border-color: #479bb6;
+        }
+
+        .interval-card.active .interval-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .interval-card.locked .interval-name,
+        .interval-card.locked .interval-time {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            opacity: 0.3;
+            transition: width 0.1s linear;
+            pointer-events: none;
+            border-radius: 8px;
+        }
+
+        .drag-handle {
+            cursor: grab;
+            color: #555;
+            font-size: 1.25rem;
+            user-select: none;
+            z-index: 1;
+        }
+
+        .drag-handle:active {
+            cursor: grabbing;
+        }
+
+        .interval-card.locked .drag-handle {
+            cursor: not-allowed;
+            opacity: 0.3;
+        }
+
+        .interval-name {
+            flex: 1;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #444;
+            color: #ffffff;
+            font-size: 1rem;
+            padding: 0.25rem;
+            outline: none;
+            min-width: 0;
+            z-index: 1;
+        }
+
+        .interval-name:focus {
+            border-color: #479bb6;
+        }
+
+        .interval-time {
+            width: 60px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #444;
+            color: #ffffff;
+            font-size: 1rem;
+            padding: 0.25rem;
+            text-align: center;
+            outline: none;
+            font-variant-numeric: tabular-nums;
+            z-index: 1;
+        }
+
+        .interval-time:focus {
+            border-color: #479bb6;
+        }
+
+        .color-picker {
+            position: relative;
+            z-index: 10;
+        }
+
+        .color-trigger {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid #444;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .color-trigger:hover {
+            border-color: #666;
+            transform: scale(1.1);
+        }
+
+        .interval-card.locked .color-trigger {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .color-dropdown {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 8px;
+            margin-bottom: 8px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            z-index: 100;
+        }
+
+        .color-dropdown.open {
+            display: grid;
+        }
+
+        .interval-card:has(.color-dropdown.open) {
+            z-index: 50;
+        }
+
+        .color-swatch {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.15);
+        }
+
+        .color-swatch.selected {
+            border-color: #ffffff;
+        }
+
+        .delete-btn {
+            background: transparent;
+            border: none;
+            color: #555;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            line-height: 1;
+            transition: color 0.15s ease;
+            z-index: 1;
+        }
+
+        .delete-btn:hover {
+            color: #ff6b6b;
+        }
+
+        .delete-btn:disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+        }
+
+        .delete-btn:disabled:hover {
+            color: #555;
+        }
+
+        .interval-card.locked .delete-btn {
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .add-interval-btn {
+            width: 100%;
+            background: transparent;
+            border: 1px dashed #444;
+            color: #555;
+            padding: 0.75rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.15s ease;
+            margin-top: 0.5rem;
+        }
+
+        .add-interval-btn:hover {
+            border-color: #479bb6;
+            color: #479bb6;
+        }
+
+        .add-interval-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .add-interval-btn:disabled:hover {
+            border-color: #444;
+            color: #555;
+        }
+
+        /* Rounds Control */
+        .rounds-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .rounds-label {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .rounds-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rounds-btn {
+            background: transparent;
+            border: 1px solid #444;
+            color: #888;
+            width: 32px;
+            height: 32px;
+            font-size: 1.25rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rounds-btn:hover:not(:disabled) {
+            border-color: #479bb6;
+            color: #479bb6;
+        }
+
+        .rounds-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .rounds-count {
+            font-size: 1.25rem;
+            min-width: 40px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Control Buttons */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .control-btn {
+            background: transparent;
+            border: 1px solid #444;
+            color: #888;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+            min-width: 100px;
+        }
+
+        .control-btn:hover {
+            border-color: #479bb6;
+            color: #479bb6;
+        }
+
+        .control-btn.primary {
+            border-color: #479bb6;
+            color: #479bb6;
+        }
+
+        .control-btn.primary:hover {
+            background: #479bb6;
+            color: #1e1e1e;
+        }
+
+        .control-btn.hold-reset {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-btn.hold-reset .reset-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: #ff6b6b;
+            opacity: 0.3;
+        }
+
+        .control-btn.hold-reset .reset-text {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Sound Toggle */
+        .sound-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: transparent;
+            border: 1px solid #444;
+            color: #888;
+            width: 44px;
+            height: 44px;
+            font-size: 1.25rem;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sound-toggle:hover {
+            border-color: #479bb6;
+            color: #479bb6;
+        }
+
+        .sound-toggle.muted {
+            color: #555;
+        }
+
+        /* Stopwatch mode */
+        .timer-time.stopwatch {
+            color: #6bcb77;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Interval Timer</h1>
+
+        <div class="timer-display">
+            <div class="timer-time" id="timerTime">0:00</div>
+            <div class="round-indicator" id="roundIndicator"></div>
+        </div>
+
+        <div class="intervals-section">
+            <div class="intervals-list" id="intervalsList"></div>
+            <button class="add-interval-btn" id="addIntervalBtn">+</button>
+        </div>
+
+        <div class="rounds-section">
+            <span class="rounds-label">Rounds:</span>
+            <div class="rounds-control">
+                <button class="rounds-btn" id="roundsDecBtn">−</button>
+                <span class="rounds-count" id="roundsCount">1</span>
+                <button class="rounds-btn" id="roundsIncBtn">+</button>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="control-btn primary" id="startBtn">Start</button>
+            <button class="control-btn hold-reset" id="resetBtn">
+                <span class="reset-progress"></span>
+                <span class="reset-text">Reset</span>
+            </button>
+        </div>
+    </div>
+
+    <button class="sound-toggle" id="soundToggle" title="Toggle sound">
+        <span id="soundIcon">🔊</span>
+    </button>
+
+    <script>
+        const STORAGE_KEY = 'interval-timer-config';
+        const COLORS = [
+            '#6bcb77', // green (default for rest)
+            '#4d96ff', // blue
+            '#479bb6', // teal
+            '#ff6b6b', // coral
+            '#ff9f43', // orange
+            '#ffd93d', // yellow
+            '#9b59b6', // purple
+            '#ff85a2', // pink
+            '#64748b', // slate
+            '#e879f9'  // magenta
+        ];
+
+        // State
+        let intervals = [];
+        let rounds = 1;
+        let soundEnabled = true;
+        let timerState = 'idle'; // idle, running, paused, complete
+        let currentIntervalIndex = 0;
+        let currentRound = 1;
+        let remainingTime = 0;
+        let timerInterval = null;
+        let stopwatchTime = 0;
+        let audioContext = null;
+
+        // DOM Elements
+        const intervalsList = document.getElementById('intervalsList');
+        const addIntervalBtn = document.getElementById('addIntervalBtn');
+        const roundsCount = document.getElementById('roundsCount');
+        const roundsDecBtn = document.getElementById('roundsDecBtn');
+        const roundsIncBtn = document.getElementById('roundsIncBtn');
+        const startBtn = document.getElementById('startBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const timerTime = document.getElementById('timerTime');
+        const roundIndicator = document.getElementById('roundIndicator');
+        const soundToggle = document.getElementById('soundToggle');
+        const soundIcon = document.getElementById('soundIcon');
+
+        // Drag state
+        let draggedIndex = null;
+
+        // Initialize
+        function init() {
+            loadConfig();
+            renderIntervals();
+            updateDisplay();
+            updateRoundsDisplay();
+            updateSoundIcon();
+        }
+
+        // Storage
+        function saveConfig() {
+            const config = {
+                intervals: intervals.map(i => ({ name: i.name, time: i.time, color: i.color })),
+                rounds,
+                soundEnabled
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+        }
+
+        function loadConfig() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    const config = JSON.parse(saved);
+                    intervals = config.intervals || getDefaultIntervals();
+                    rounds = config.rounds || 1;
+                    soundEnabled = config.soundEnabled !== false;
+                } catch {
+                    intervals = getDefaultIntervals();
+                }
+            } else {
+                intervals = getDefaultIntervals();
+            }
+        }
+
+        function getDefaultIntervals() {
+            return [
+                { name: 'Work', time: 30, color: '#479bb6' },
+                { name: 'Rest', time: 30, color: '#6bcb77' }
+            ];
+        }
+
+        // Time formatting
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function parseTime(str) {
+            const parts = str.split(':');
+            if (parts.length === 2) {
+                const mins = parseInt(parts[0], 10) || 0;
+                const secs = parseInt(parts[1], 10) || 0;
+                return mins * 60 + secs;
+            } else if (parts.length === 1) {
+                return parseInt(parts[0], 10) || 0;
+            }
+            return 0;
+        }
+
+        // Rendering
+        function renderIntervals() {
+            intervalsList.innerHTML = '';
+            intervals.forEach((interval, index) => {
+                const card = createIntervalCard(interval, index);
+                intervalsList.appendChild(card);
+            });
+            updateDeleteButtons();
+        }
+
+        function createIntervalCard(interval, index) {
+            const card = document.createElement('div');
+            card.className = 'interval-card';
+            card.dataset.index = index;
+
+            if (timerState !== 'idle') {
+                card.classList.add('locked');
+            }
+
+            if (timerState === 'running' && index === currentIntervalIndex) {
+                card.classList.add('active');
+            }
+
+            // Progress fill
+            const progressFill = document.createElement('div');
+            progressFill.className = 'progress-fill';
+            progressFill.style.backgroundColor = interval.color;
+            card.appendChild(progressFill);
+
+            // Drag handle
+            const dragHandle = document.createElement('span');
+            dragHandle.className = 'drag-handle';
+            dragHandle.textContent = '⋮⋮';
+            dragHandle.draggable = timerState === 'idle';
+            card.appendChild(dragHandle);
+
+            // Name input
+            const nameInput = document.createElement('input');
+            nameInput.type = 'text';
+            nameInput.className = 'interval-name';
+            nameInput.value = interval.name;
+            nameInput.placeholder = 'Interval name';
+            nameInput.addEventListener('input', (e) => {
+                intervals[index].name = e.target.value;
+                saveConfig();
+            });
+            card.appendChild(nameInput);
+
+            // Time input
+            const timeInput = document.createElement('input');
+            timeInput.type = 'text';
+            timeInput.className = 'interval-time';
+            timeInput.value = formatTime(interval.time);
+            timeInput.addEventListener('blur', (e) => {
+                const seconds = parseTime(e.target.value);
+                intervals[index].time = Math.max(1, seconds);
+                e.target.value = formatTime(intervals[index].time);
+                saveConfig();
+            });
+            timeInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') e.target.blur();
+            });
+            card.appendChild(timeInput);
+
+            // Color picker
+            const colorPicker = document.createElement('div');
+            colorPicker.className = 'color-picker';
+
+            const colorTrigger = document.createElement('button');
+            colorTrigger.className = 'color-trigger';
+            colorTrigger.style.backgroundColor = interval.color;
+            colorPicker.appendChild(colorTrigger);
+
+            const colorDropdown = document.createElement('div');
+            colorDropdown.className = 'color-dropdown';
+
+            COLORS.forEach(color => {
+                const swatch = document.createElement('button');
+                swatch.className = 'color-swatch';
+                if (color === interval.color) swatch.classList.add('selected');
+                swatch.style.backgroundColor = color;
+                swatch.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    intervals[index].color = color;
+                    colorDropdown.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+                    swatch.classList.add('selected');
+                    colorTrigger.style.backgroundColor = color;
+                    progressFill.style.backgroundColor = color;
+                    colorDropdown.classList.remove('open');
+                    saveConfig();
+                });
+                colorDropdown.appendChild(swatch);
+            });
+
+            colorPicker.appendChild(colorDropdown);
+
+            colorTrigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Close other open dropdowns
+                document.querySelectorAll('.color-dropdown.open').forEach(d => {
+                    if (d !== colorDropdown) d.classList.remove('open');
+                });
+                colorDropdown.classList.toggle('open');
+            });
+
+            card.appendChild(colorPicker);
+
+            // Delete button
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.textContent = '×';
+            deleteBtn.addEventListener('click', () => {
+                if (intervals.length > 1) {
+                    intervals.splice(index, 1);
+                    saveConfig();
+                    renderIntervals();
+                }
+            });
+            card.appendChild(deleteBtn);
+
+            // Drag events
+            if (timerState === 'idle') {
+                dragHandle.addEventListener('dragstart', (e) => {
+                    draggedIndex = index;
+                    card.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+
+                dragHandle.addEventListener('dragend', () => {
+                    draggedIndex = null;
+                    card.classList.remove('dragging');
+                    document.querySelectorAll('.interval-card').forEach(c => c.classList.remove('drag-over'));
+                });
+
+                card.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    if (draggedIndex !== null && draggedIndex !== index) {
+                        card.classList.add('drag-over');
+                    }
+                });
+
+                card.addEventListener('dragleave', () => {
+                    card.classList.remove('drag-over');
+                });
+
+                card.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    card.classList.remove('drag-over');
+                    if (draggedIndex !== null && draggedIndex !== index) {
+                        const dragged = intervals.splice(draggedIndex, 1)[0];
+                        intervals.splice(index, 0, dragged);
+                        saveConfig();
+                        renderIntervals();
+                    }
+                });
+            }
+
+            return card;
+        }
+
+        function updateDeleteButtons() {
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+            deleteButtons.forEach(btn => {
+                btn.disabled = intervals.length <= 1;
+            });
+        }
+
+        function updateDisplay() {
+            if (timerState === 'complete') {
+                timerTime.textContent = formatTime(stopwatchTime);
+                timerTime.classList.add('stopwatch');
+                roundIndicator.textContent = 'Complete!';
+            } else if (timerState === 'idle') {
+                timerTime.textContent = '0:00';
+                timerTime.classList.remove('stopwatch');
+                roundIndicator.textContent = '';
+                clearAllProgress();
+            } else {
+                timerTime.textContent = formatTime(remainingTime);
+                timerTime.classList.remove('stopwatch');
+                roundIndicator.textContent = `Round ${currentRound} of ${rounds}`;
+                updateProgress();
+            }
+        }
+
+        function updateProgress() {
+            const cards = document.querySelectorAll('.interval-card');
+            cards.forEach((card, index) => {
+                const fill = card.querySelector('.progress-fill');
+                card.classList.remove('active');
+
+                if (index < currentIntervalIndex || (currentRound > 1 && index <= currentIntervalIndex)) {
+                    // Completed intervals in current round
+                    if (index < currentIntervalIndex) {
+                        fill.style.width = '100%';
+                    }
+                }
+
+                if (index === currentIntervalIndex && timerState === 'running') {
+                    card.classList.add('active');
+                    const interval = intervals[index];
+                    const elapsed = interval.time - remainingTime;
+                    const percent = (elapsed / interval.time) * 100;
+                    fill.style.width = `${percent}%`;
+                } else if (index === currentIntervalIndex && timerState === 'paused') {
+                    card.classList.add('active');
+                    const interval = intervals[index];
+                    const elapsed = interval.time - remainingTime;
+                    const percent = (elapsed / interval.time) * 100;
+                    fill.style.width = `${percent}%`;
+                } else if (index > currentIntervalIndex) {
+                    fill.style.width = '0%';
+                }
+            });
+        }
+
+        function clearAllProgress() {
+            const fills = document.querySelectorAll('.progress-fill');
+            fills.forEach(fill => fill.style.width = '0%');
+            const cards = document.querySelectorAll('.interval-card');
+            cards.forEach(card => card.classList.remove('active'));
+        }
+
+        function updateRoundsDisplay() {
+            roundsCount.textContent = rounds;
+            roundsDecBtn.disabled = rounds <= 1 || timerState !== 'idle';
+            roundsIncBtn.disabled = timerState !== 'idle';
+        }
+
+        function updateSoundIcon() {
+            soundIcon.textContent = soundEnabled ? '🔊' : '🔇';
+            soundToggle.classList.toggle('muted', !soundEnabled);
+        }
+
+        function updateControlButtons() {
+            addIntervalBtn.disabled = timerState !== 'idle';
+            roundsDecBtn.disabled = rounds <= 1 || timerState !== 'idle';
+            roundsIncBtn.disabled = timerState !== 'idle';
+
+            if (timerState === 'idle') {
+                startBtn.textContent = 'Start';
+            } else if (timerState === 'running') {
+                startBtn.textContent = 'Pause';
+            } else if (timerState === 'paused') {
+                startBtn.textContent = 'Resume';
+            } else if (timerState === 'complete') {
+                startBtn.textContent = 'Start';
+            }
+        }
+
+        // Timer logic
+        function startTimer() {
+            if (timerState === 'idle' || timerState === 'complete') {
+                timerState = 'running';
+                currentIntervalIndex = 0;
+                currentRound = 1;
+                remainingTime = intervals[0].time;
+                renderIntervals();
+            } else if (timerState === 'paused') {
+                timerState = 'running';
+            }
+
+            timerInterval = setInterval(tick, 1000);
+            updateControlButtons();
+            updateDisplay();
+        }
+
+        function pauseTimer() {
+            timerState = 'paused';
+            clearInterval(timerInterval);
+            updateControlButtons();
+        }
+
+        function resetTimer() {
+            timerState = 'idle';
+            clearInterval(timerInterval);
+            currentIntervalIndex = 0;
+            currentRound = 1;
+            remainingTime = 0;
+            stopwatchTime = 0;
+            renderIntervals();
+            updateDisplay();
+            updateControlButtons();
+            updateRoundsDisplay();
+        }
+
+        function tick() {
+            if (timerState === 'complete') {
+                stopwatchTime++;
+                updateDisplay();
+                return;
+            }
+
+            remainingTime--;
+
+            // Play countdown beeps at 4, 3, 2, 1 seconds remaining
+            if (remainingTime >= 1 && remainingTime <= 4) {
+                playBeep(remainingTime === 1);
+            }
+
+            if (remainingTime <= 0) {
+                nextInterval();
+            }
+
+            updateDisplay();
+        }
+
+        function nextInterval() {
+            currentIntervalIndex++;
+
+            if (currentIntervalIndex >= intervals.length) {
+                currentIntervalIndex = 0;
+                currentRound++;
+
+                if (currentRound > rounds) {
+                    timerState = 'complete';
+                    stopwatchTime = 0;
+                    updateControlButtons();
+                    renderIntervals();
+                    return;
+                }
+            }
+
+            remainingTime = intervals[currentIntervalIndex].time;
+            renderIntervals();
+        }
+
+        // Audio
+        function getAudioContext() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioContext;
+        }
+
+        function playBeep(isFinal = false) {
+            if (!soundEnabled) return;
+
+            const ctx = getAudioContext();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            if (isFinal) {
+                // Final beep - longer and lower pitch
+                osc.frequency.value = 800;
+                gain.gain.value = 0.3;
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.5);
+            } else {
+                // Countdown beep - short and higher pitch
+                osc.frequency.value = 600;
+                gain.gain.value = 0.3;
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.15);
+            }
+        }
+
+        // Event listeners
+        addIntervalBtn.addEventListener('click', () => {
+            intervals.push({ name: 'Work', time: 30, color: '#479bb6' });
+            saveConfig();
+            renderIntervals();
+        });
+
+        roundsDecBtn.addEventListener('click', () => {
+            if (rounds > 1 && timerState === 'idle') {
+                rounds--;
+                saveConfig();
+                updateRoundsDisplay();
+                updateDisplay();
+            }
+        });
+
+        roundsIncBtn.addEventListener('click', () => {
+            if (timerState === 'idle') {
+                rounds++;
+                saveConfig();
+                updateRoundsDisplay();
+                updateDisplay();
+            }
+        });
+
+        startBtn.addEventListener('click', () => {
+            if (timerState === 'running') {
+                pauseTimer();
+            } else {
+                startTimer();
+            }
+        });
+
+        // Hold-to-reset functionality
+        let resetHoldTimeout = null;
+        const RESET_HOLD_DURATION = 2000;
+        const resetProgress = resetBtn.querySelector('.reset-progress');
+
+        function startResetHold() {
+            // Reset first
+            resetProgress.style.transition = 'none';
+            resetProgress.style.width = '0%';
+            void resetProgress.offsetWidth; // Force reflow
+
+            // Then start animation
+            resetProgress.style.transition = 'width 2s linear';
+            resetProgress.style.width = '100%';
+
+            resetHoldTimeout = setTimeout(() => {
+                resetTimer();
+                cancelResetHold();
+            }, RESET_HOLD_DURATION);
+        }
+
+        function cancelResetHold() {
+            if (resetHoldTimeout) {
+                clearTimeout(resetHoldTimeout);
+                resetHoldTimeout = null;
+            }
+            resetProgress.style.transition = 'none';
+            resetProgress.style.width = '0%';
+        }
+
+        resetBtn.addEventListener('mousedown', startResetHold);
+        resetBtn.addEventListener('mouseup', cancelResetHold);
+        resetBtn.addEventListener('mouseleave', cancelResetHold);
+        resetBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            startResetHold();
+        });
+        resetBtn.addEventListener('touchend', cancelResetHold);
+        resetBtn.addEventListener('touchcancel', cancelResetHold);
+
+        soundToggle.addEventListener('click', () => {
+            soundEnabled = !soundEnabled;
+            saveConfig();
+            updateSoundIcon();
+        });
+
+        // Close color dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.color-picker')) {
+                document.querySelectorAll('.color-dropdown.open').forEach(d => d.classList.remove('open'));
+            }
+        });
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>
