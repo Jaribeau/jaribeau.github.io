@@ -25,6 +25,12 @@ h1, h2, h3 {
 	color: var(--text-light);
 }
 
+h2 {
+	font-size: medium;
+	padding-left: 40px;
+	padding-top: 20px;
+}
+
 p {
 	font-family: 'Tahoma', "Verdana", sans-serif;
 	font-size: medium;
@@ -48,6 +54,7 @@ a:hover {
 }
 
 #about,
+#whats-up,
 #projects,
 #photography,
 #miscellaneous,
@@ -57,6 +64,7 @@ a:hover {
 }
 
 #about h1,
+#whats-up h1,
 #projects h1,
 #photography h1,
 #miscellaneous h1,
@@ -72,6 +80,7 @@ a:hover {
 }
 
 #about p,
+#whats-up p,
 #projects p,
 #photography p,
 #miscellaneous p,
@@ -183,7 +192,8 @@ h3 {
 
 
 /****** ABOUT ME ******/
-#about p {
+#about p,
+#whats-up p {
 	color: var(--text-muted);
 	padding-left: 40px;
 	padding-right: 40px;
