@@ -1,6 +1,6 @@
-/* lg */ 
+/* lg */
 @media (min-width: 1200px) {
-  
+
 }
 
 /* md */
@@ -15,18 +15,28 @@
 
 /* xs */
 @media (max-width: 767px) {
+    #about h1,
+    #projects h1,
+    #photography h1,
+    #miscellaneous h1,
+    #contact h1 {
+        padding-left: 40px;
+        padding-bottom: 50px;
+    }
+
     #home
     .name {
 	    border: none;
-        padding: 50px 10px 10px 50px;
+        padding: 50px 0px 10px 0px;
     }
     #home
     .home-content {
-	    border: 1px solid white;
+	    border: 1px solid var(--primary-hover);
     }
 
     #home
     h1 {
+        font-size: 2.5rem;
         letter-spacing: 10px;
     }
 
@@ -40,4 +50,3 @@
 @media (max-width: 479px) {
 
 }
-
