@@ -205,7 +205,21 @@ h3 {
 }
 
 #home
+.nav-links a::before {
+	content: '↓ ';
+	font-size: 0.9em;
+	color: #444;
+	vertical-align: 1px;
+	transition: color 150ms ease;
+}
+
+#home
 .nav-links a:hover {
+	color: var(--primary-color);
+}
+
+#home
+.nav-links a:hover::after {
 	color: var(--primary-color);
 }
 
