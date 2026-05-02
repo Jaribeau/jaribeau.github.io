@@ -199,6 +199,13 @@ h3 {
 	padding-right: 40px;
 }
 
+@media (max-width: 767px) {
+	#whats-up h1,
+	#about h1 {
+		padding-left: 40px;
+	}
+}
+
 
 
 /****** PROJECTS ******/
