@@ -17,6 +17,40 @@
 	--section-border: 1px solid var(--border-dark);
 }
 
+/****** ACCESSIBILITY ******/
+
+.skip-link {
+	position: absolute;
+	left: -9999px;
+	top: auto;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+.skip-link:focus {
+	position: fixed;
+	top: 16px;
+	left: 16px;
+	width: auto;
+	height: auto;
+	overflow: visible;
+	padding: 8px 16px;
+	background: var(--primary-color);
+	color: #000;
+	font-family: 'Space Mono', monospace;
+	font-size: 0.9rem;
+	z-index: 9999;
+	outline: none;
+}
+
+*:focus-visible {
+	outline: 2px solid var(--primary-color);
+	outline-offset: 2px;
+}
+
+
+
 /****** GENERAL ******/
 
 h1, h2, h3 {

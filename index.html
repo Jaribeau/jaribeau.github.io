@@ -17,6 +17,7 @@
 
 </head><!--/head-->
 <body>
+	<a href="#about" class="skip-link">Skip to main content</a>
 	<!-- <div class="under-construction-chip">🚧 Hey, welcome! I'm right here on the other side of the screen, cooking up some updates! ✨</div> -->
 	<section id="home">
 		<div class="container home-content">
@@ -26,23 +27,23 @@
 				
 					<p style="color: #aaa; font-family: 'Playpen Sans', cursive; font-size: 1.7rem; font-style: italic; letter-spacing: 0.02em;">Hey 👋 Welcome to my site. Please make yourself at home! 𓂃..</p>
 				
-				<div class="nav-links">
+				<nav class="nav-links" aria-label="Page sections">
 					<a href="#about">Welcome</a>
 					<a href="#whats-up">What I'm Up To</a>
 					<a href="#projects">Past Projects</a>
 					<a href="#photography">Adventure</a>
 					<a href="#contact">Get in Touch</a>
-				</div>
+				</nav>
 				<br><br>
 				<div class=icon>
-					<a href="https://linkedin.com/in/jaredbaribeau" target="_blank"><img src="images/icons/linkedin-icon.svg" class="fa social-icon"></img></a>
-					<a href="https://github.com/jaribeau" target="_blank"><img src="images/icons/github-icon.svg" class="fa social-icon"></img></a>
+					<a href="https://linkedin.com/in/jaredbaribeau" target="_blank" aria-label="LinkedIn profile (opens in new tab)"><img src="images/icons/linkedin-icon.svg" class="fa social-icon" alt=""></a>
+					<a href="https://github.com/jaribeau" target="_blank" aria-label="GitHub profile (opens in new tab)"><img src="images/icons/github-icon.svg" class="fa social-icon" alt=""></a>
 				</div>
 			</div>
 
 			<div class="see-more-icon">
 				<div class="icon">
-					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" enable-background="new 0 0 129 129" width="50px" height="50px">
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" enable-background="new 0 0 129 129" width="50px" height="50px" aria-hidden="true" focusable="false">
 					  <g><path d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z"/></g>
 					</svg>
 				</div>
@@ -272,7 +273,7 @@
 							<br>In 2021 we completed field trails and received accreditation in Cambodia for our novel approach to removing mines from the ground. We launched clearance operations that have since freed 100,000 m2 (25 acres) of land previously containing mines and UXO.<br><br>
 						</p>
 
-						<iframe width="100%" height="300" src="https://www.youtube.com/embed/RCdrTrD6edE" referrerpolicy="strict-origin-when-cross-origin" frameborder="0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						<iframe width="100%" height="300" src="https://www.youtube.com/embed/RCdrTrD6edE" referrerpolicy="strict-origin-when-cross-origin" frameborder="0" title="Demine Robotics mine clearance robot demonstration" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 						
 						<p>
 							<br>Creating the Jevit Mine Spade and Jevit Camera Kit required working across domains including embedded systems, electric and hydraulic actuators, video streaming, android development, wireless comms, and UI/UX design.<br><br>
@@ -472,7 +473,7 @@
 					<div class="modal-body">
 						<p>Smart Greeting is an experiment in using technology to improve in-person interactions with TD customers in a branch. It uses Bluetooth beacons, the customer's phone, and a screen to notify the teller of an approaching customer's name. This technology was shown to customers in a "Comfort Test" to determine if they were open to this potentially surprising use of the devices they carry. </p>
 
-						<iframe width="100%" height="300" src="https://www.youtube.com/embed/-lNanh3wnhA" referrerpolicy="strict-origin-when-cross-origin" frameborder="0" allowfullscreen></iframe>
+						<iframe width="100%" height="300" src="https://www.youtube.com/embed/-lNanh3wnhA" referrerpolicy="strict-origin-when-cross-origin" frameborder="0" title="TD Smart Greeting technology demonstration" allowfullscreen></iframe>
 
 						<p>Smart Greeting was built during my time at TD Lab.</p>
 
@@ -565,7 +566,7 @@
 						<h4 class="modal-title">MyoMote | Using Mio and IR for Universal Gesture Control</h4>
 					</div>
 					<div class="modal-body">
-						<iframe width="100%" height="300px" src="https://www.youtube.com/embed/vdU4LQs4qpg" referrerpolicy="strict-origin-when-cross-origin" frameborder="0" allowfullscreen></iframe>
+						<iframe width="100%" height="300px" src="https://www.youtube.com/embed/vdU4LQs4qpg" referrerpolicy="strict-origin-when-cross-origin" frameborder="0" title="MyoMote gesture-based universal remote control demonstration" allowfullscreen></iframe>
 						<p>The connected household is the way of the fast-approaching future - but how do you integrate new bluetooth/wifi enabled 'smart' devices and older tech like that tube TV you have sitting in the basement?
 						<br><br>
 						Enter <b><a href="https://devpost.com/software/myomote-4yeo5" target="blank">MyoMote</a></b> - our hack that utilizes the Myo and infra-red technology to bridge the gap of modern and not-so-modern household tech for the specific purpose of gesture control.
@@ -773,27 +774,13 @@
 						<div class="carousel-inner">
 							<div class="item active">
 								<div class="row">
-									<div class="col-xs-3"><a href="#photgraphy" class="pop"><img src="images/photography/thumbs/photography-thumbs_0002_leysin-train.jpg" alt="Image" class="img-responsive"></a>
+									<div class="col-xs-3"><a href="#photography" class="pop"><img src="images/photography/thumbs/photography-thumbs_0002_leysin-train.jpg" alt="Mountain train in Leysin, Switzerland" class="img-responsive"></a>
 									</div>
-									<div class="col-xs-3"><a href="#photgraphy" class="pop"><img src="images/photography/thumbs/photography-thumbs_0005_kirriroam-mansion.jpg" alt="Image" class="img-responsive"></a>
+									<div class="col-xs-3"><a href="#photography" class="pop"><img src="images/photography/thumbs/photography-thumbs_0005_kirriroam-mansion.jpg" alt="Historic mansion in Kirriroam" class="img-responsive"></a>
 									</div>
-									<div class="col-xs-3"><a href="#photgraphy" class="pop"><img src="images/photography/thumbs/photography-thumbs_0000_switzerland.jpg" alt="Image" class="img-responsive"></a>
+									<div class="col-xs-3"><a href="#photography" class="pop"><img src="images/photography/thumbs/photography-thumbs_0000_switzerland.jpg" alt="Alpine mountain landscape in Switzerland" class="img-responsive"></a>
 									</div>
-									<div class="col-xs-3"><a href="#photgraphy" class="pop"><img src="images/photography/thumbs/photography-thumbs_0001_scuba.jpg" alt="Image" class="img-responsive"></a>
-									</div>
-								</div>
-								<!--/row-->
-							</div>
-							<!--/item-->
-							<div class="item">
-								<div class="row">
-									<div class="col-xs-3"><a href="#photgraphy" class="pop"><img src="images/photography/thumbs/photography-thumbs_0003_leysin-climbing.jpg" alt="Image" class="img-responsive"></a>
-									</div>
-									<div class="col-xs-3"><a href="#photgraphy" class="pop"><img src="images/photography/thumbs/photography-thumbs_0004_kruger-elephant.jpg" alt="Image" class="img-responsive"></a>
-									</div>
-									<div class="col-xs-3"><a href="#photgraphy" class="pop"><img src="images/photography/thumbs/photography-thumbs_0006_hike-a-bike.jpg" alt="Image" class="img-responsive"></a>
-									</div>
-									<div class="col-xs-3"><a href="#photgraphy" class="pop"><img src="images/photography/thumbs/photography-thumbs_0007_cape-town-hike.jpg" alt="Image" class="img-responsive"></a>
+									<div class="col-xs-3"><a href="#photography" class="pop"><img src="images/photography/thumbs/photography-thumbs_0001_scuba.jpg" alt="Scuba diving underwater" class="img-responsive"></a>
 									</div>
 								</div>
 								<!--/row-->
@@ -801,21 +788,35 @@
 							<!--/item-->
 							<div class="item">
 								<div class="row">
-									<div class="col-xs-3"><a href="#photgraphy" class="pop"><img src="images/photography/thumbs/photography-thumbs_0008_algonquin-campfire.jpg" alt="Image" class="img-responsive"></a>
+									<div class="col-xs-3"><a href="#photography" class="pop"><img src="images/photography/thumbs/photography-thumbs_0003_leysin-climbing.jpg" alt="Rock climbing in Leysin, Switzerland" class="img-responsive"></a>
 									</div>
-									<div class="col-xs-3"><a href="#photgraphy" class="pop"><img src="images/photography/thumbs/photography-thumbs_0009_zermatt.jpg" alt="Image" class="img-responsive"></a>
+									<div class="col-xs-3"><a href="#photography" class="pop"><img src="images/photography/thumbs/photography-thumbs_0004_kruger-elephant.jpg" alt="Elephant in Kruger National Park, South Africa" class="img-responsive"></a>
+									</div>
+									<div class="col-xs-3"><a href="#photography" class="pop"><img src="images/photography/thumbs/photography-thumbs_0006_hike-a-bike.jpg" alt="Hike-a-bike on a mountain trail" class="img-responsive"></a>
+									</div>
+									<div class="col-xs-3"><a href="#photography" class="pop"><img src="images/photography/thumbs/photography-thumbs_0007_cape-town-hike.jpg" alt="Hiking above Cape Town, South Africa" class="img-responsive"></a>
+									</div>
+								</div>
+								<!--/row-->
+							</div>
+							<!--/item-->
+							<div class="item">
+								<div class="row">
+									<div class="col-xs-3"><a href="#photography" class="pop"><img src="images/photography/thumbs/photography-thumbs_0008_algonquin-campfire.jpg" alt="Campfire at Algonquin Park" class="img-responsive"></a>
+									</div>
+									<div class="col-xs-3"><a href="#photography" class="pop"><img src="images/photography/thumbs/photography-thumbs_0009_zermatt.jpg" alt="Zermatt village with the Matterhorn in the background" class="img-responsive"></a>
 									</div>
 									<!-- <div class="col-xs-3"><a href="#x"><img src="images/photography/thumbs/photography-thumbs_0010_ratanakiri-waterfall.jpg" alt="Image" class="img-responsive"></a>
 									</div> -->
-									<div class="col-xs-3"><a href="#photgraphy" class="pop"><img src="images/photography/thumbs/photography-thumbs_0011_wilderniss.jpg" alt="Image" class="img-responsive"></a>
+									<div class="col-xs-3"><a href="#photography" class="pop"><img src="images/photography/thumbs/photography-thumbs_0011_wilderniss.jpg" alt="Wilderness landscape" class="img-responsive"></a>
 									</div>
 								</div>
 								<!--/row-->
 							</div>
 							<!--/item-->
 						</div>
-						<!--/carousel-inner--> <a class="left carousel-control" href="#photoCarousel" data-slide="prev">‹</a>
-						<a class="right carousel-control" href="#photoCarousel" data-slide="next">›</a>
+						<!--/carousel-inner--> <a class="left carousel-control" href="#photoCarousel" data-slide="prev" aria-label="Previous photo">‹</a>
+						<a class="right carousel-control" href="#photoCarousel" data-slide="next" aria-label="Next photo">›</a>
 					</div>
 
 					<br>
