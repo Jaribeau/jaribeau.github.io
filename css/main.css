@@ -325,15 +325,6 @@ h3 {
 	text-decoration: underline;
 }
 
-.whats-next {
-	border-top: none;
-	padding-top: 0;
-}
-
-.whats-next p {
-	font-style: italic;
-}
-
 @media (max-width: 767px) {
 	#whats-up h1,
 	#about h1 {
